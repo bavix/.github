@@ -35,7 +35,7 @@ jobs:
         with:
           files: "changelog.md"
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         id: artifacts-golang
         with:
           go-version: '^1.21.0'
