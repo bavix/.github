@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.4.0 - 2025-09-04
+
+### What's Changed
+
+* Bump wangyoucao577/go-release-action from 1.51 to 1.52 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/23
+* Bump wangyoucao577/go-release-action from 1.52 to 1.53 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/24
+* Bump stefanzweifel/git-auto-commit-action from 5 to 6 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/25
+* Bump actions/setup-go from 5 to 6 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/27
+* Bump actions/setup-node from 4 to 5 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/28
+* Bump actions/checkout from 4 to 5 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/26
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.3.3...0.4.0
+
 ## 0.3.3 - 2024-08-01
 
 ### What's Changed
