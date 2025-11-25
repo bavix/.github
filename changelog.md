@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.1 - 2025-11-25
+
+### What's Changed
+
+* Bump actions/setup-node from 5 to 6 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/30
+* Bump stefanzweifel/git-auto-commit-action from 6 to 7 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/29
+* Bump actions/checkout from 5 to 6 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/31
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.4.0...0.4.1
+
 ## 0.4.0 - 2025-09-04
 
 ### What's Changed
