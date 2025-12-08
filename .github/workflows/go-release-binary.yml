@@ -22,7 +22,7 @@ jobs:
             goos: windows
     steps:
       - uses: actions/checkout@v6
-      - uses: wangyoucao577/go-release-action@v1.53
+      - uses: wangyoucao577/go-release-action@v1.54
         with:
           executable_compression: ${{ inputs.executable_compression }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
