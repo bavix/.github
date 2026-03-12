@@ -2,7 +2,7 @@
 name: buf-lint
 
 on:
-  'workflow_call':
+  workflow_call:
     inputs:
       buf-version:
         type: string

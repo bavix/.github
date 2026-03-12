@@ -2,7 +2,7 @@
 name: go release binary
 
 on:
-  'workflow_call':
+  workflow_call:
     inputs:
       executable_compression:
         type: string

@@ -2,7 +2,7 @@
 name: grpctestify
 
 on:
-  'workflow_call':
+  workflow_call:
     inputs:
       working-directory:
         type: string

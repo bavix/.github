@@ -2,7 +2,7 @@
 name: hadolint
 
 on:
-  'workflow_call':
+  workflow_call:
     inputs:
       dockerfile:
         type: string

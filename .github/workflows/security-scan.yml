@@ -2,7 +2,7 @@
 name: security-scan
 
 on:
-  'workflow_call':
+  workflow_call:
     inputs:
       go-version:
         type: string

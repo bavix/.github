@@ -2,7 +2,7 @@
 name: npm run test
 
 on:
-  'workflow_call':
+  workflow_call:
     inputs:
       nodejs:
         type: string

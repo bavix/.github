@@ -2,7 +2,7 @@
 name: compile assets
 
 on:
-  'workflow_call':
+  workflow_call:
     inputs:
       nodejs:
         type: string

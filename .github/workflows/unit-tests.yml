@@ -2,7 +2,7 @@
 name: Unit (DEPRECATED)
 
 on:
-  'workflow_call':
+  workflow_call:
     inputs:
       go-versions:
         type: string
