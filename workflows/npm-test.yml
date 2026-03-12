@@ -6,7 +6,7 @@ on:
     inputs:
       nodejs:
         type: string
-        default: '24.x'
+        default: '20.x'
 
 jobs:
   deprecated-warning:

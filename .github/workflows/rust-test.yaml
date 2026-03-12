@@ -1,0 +1,83 @@
+---
+name: rust-test
+
+on:
+  workflow_call:
+    inputs:
+      rust-version:
+        type: string
+        default: 'stable'
+      working-directory:
+        type: string
+        default: '.'
+      use-nextest:
+        type: boolean
+        default: false
+      test-flags:
+        type: string
+        default: '--workspace --all-targets --all-features'
+      fail-fast:
+        type: boolean
+        default: false
+
+jobs:
+  test:
+    name: Test (${{ matrix.target }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: ${{ inputs.fail-fast }}
+      matrix:
+        include:
+          - target: x86_64-unknown-linux-gnu
+            os: ubuntu-latest
+          - target: aarch64-unknown-linux-gnu
+            os: ubuntu-latest
+          - target: x86_64-apple-darwin
+            os: macos-latest
+          - target: aarch64-apple-darwin
+            os: macos-latest
+          - target: x86_64-pc-windows-msvc
+            os: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: ${{ inputs.rust-version }}
+          target: ${{ matrix.target }}
+          cache: true
+          cache-workspace: ${{ inputs.working-directory }}
+
+      - name: Setup cross-compilation
+        if: matrix.target == 'aarch64-unknown-linux-gnu'
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cross
+
+      - name: Install cargo-nextest
+        if: ${{ inputs.use-nextest }}
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-nextest
+
+      - name: Run tests (cargo)
+        if: ${{ !inputs.use-nextest && matrix.target != 'aarch64-unknown-linux-gnu' }}
+        working-directory: ${{ inputs.working-directory }}
+        run: cargo test ${{ inputs.test-flags }}
+
+      - name: Run tests (cargo cross)
+        if: ${{ !inputs.use-nextest && matrix.target == 'aarch64-unknown-linux-gnu' }}
+        working-directory: ${{ inputs.working-directory }}
+        run: cross test --target ${{ matrix.target }} ${{ inputs.test-flags }}
+
+      - name: Run tests (nextest)
+        if: ${{ inputs.use-nextest && matrix.target != 'aarch64-unknown-linux-gnu' }}
+        working-directory: ${{ inputs.working-directory }}
+        run: cargo nextest run ${{ inputs.test-flags }}
+
+      - name: Run tests (nextest cross)
+        if: ${{ inputs.use-nextest && matrix.target == 'aarch64-unknown-linux-gnu' }}
+        working-directory: ${{ inputs.working-directory }}
+        run: cross nextest run --target ${{ matrix.target }} ${{ inputs.test-flags }}

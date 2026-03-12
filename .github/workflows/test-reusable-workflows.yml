@@ -1,0 +1,158 @@
+---
+name: Test Reusable Workflows
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+
+jobs:
+  yamllint:
+    name: Yamllint Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Run yamllint
+        run: |
+          if command -v yamllint &> /dev/null; then
+            yamllint -c .yamllint.yml .github/workflows/
+          else
+            pip install yamllint
+            yamllint -c .yamllint.yml .github/workflows/
+          fi
+
+  actionlint:
+    name: Actionlint Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Run actionlint
+        run: |
+          if command -v actionlint &> /dev/null; then
+            actionlint .github/workflows/
+          else
+            go install github.com/rhysd/actionlint/cmd/actionlint@latest
+            ~/go/bin/actionlint .github/workflows/
+          fi
+
+  validate-workflow-syntax:
+    name: Validate Workflow Syntax
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        workflow:
+          - changelog.yml
+          - docker-builder.yml
+          - docker-hadolint.yaml
+          - go-golangci-lint.yml
+          - go-release-binary.yml
+          - go-semgrep.yml
+          - go-unit-tests.yml
+          - grpctestify.yml
+          - lock.yml
+          - node-compile-assets.yml
+          - node-npm-test.yml
+          - php-semgrep.yml
+          - proto-buf-lint.yml
+          - rust-cargo-deny.yaml
+          - rust-clippy.yaml
+          - rust-fmt.yaml
+          - rust-release.yaml
+          - rust-test.yaml
+          - security-scan.yml
+          - compile-assets.yml
+          - npm-test.yml
+          - unit-tests.yml
+          - golangci-lint.yml
+          - hadolint.yaml
+          - buf-lint.yml
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install yamllint
+        run: pip install yamllint
+
+      - name: Validate ${{ matrix.workflow }}
+        run: |
+          echo "Validating ${{ matrix.workflow }}..."
+          if ! yamllint .github/workflows/${{ matrix.workflow }}; then
+            echo "❌ Validation failed for ${{ matrix.workflow }}"
+            exit 1
+          fi
+          echo "✅ ${{ matrix.workflow }} is valid"
+
+  check-plan-md:
+    name: Check PLAN.md
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Check all workflows are documented
+        run: |
+          # Get all workflow files
+          WORKFLOWS=$(find .github/workflows -name '*.yml' -o -name '*.yaml' \
+          | xargs -n1 basename -a)
+
+          # Check if all workflows are documented in PLAN.md
+          for workflow in $WORKFLOWS; do
+            if ! grep -q "$workflow" PLAN.md; then
+              echo "❌ Workflow $workflow is not documented in PLAN.md"
+              exit 1
+            fi
+          done
+
+          echo "✅ All workflows are documented in PLAN.md"
+
+  check-changelog-consistency:
+    name: Check Changelog Consistency
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Check if changelog.yml is updated
+        run: |
+          if [ -f ".github/workflows/changelog.yml" ]; then
+            echo "changelog.yml exists"
+            if ! grep -q "CHANGELOG.md" \
+            ".github/workflows/changelog.yml"; then
+              echo "❌ changelog.yml should reference CHANGELOG.md"
+              exit 1
+            fi
+            echo "✅ changelog.yml correctly references CHANGELOG.md"
+          fi
+
+  summary:
+    name: Summary
+    runs-on: ubuntu-latest
+    needs:
+      - yamllint
+      - actionlint
+      - validate-workflow-syntax
+      - check-plan-md
+      - check-changelog-consistency
+    if: ${{ always() }}
+    steps:
+      - name: Create Summary
+        run: |
+          echo "# Workflow Validation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Yamllint | ${{ needs.yamllint.result == 'success' && '✅' || \
+          '❌' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Actionlint | ${{ needs.actionlint.result == 'success' && \
+          '✅' || '❌' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Workflow Syntax | ${{ \
+          needs.validate-workflow-syntax.result == 'success' && '✅' || \
+          '❌' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| PLAN.md | ${{ needs.check-plan-md.result == 'success' && \
+          '✅' || '❌' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Changelog | ${{ needs.check-changelog-consistency.result == \
+          'success' && '✅' || '❌' }} |" >> $GITHUB_STEP_SUMMARY

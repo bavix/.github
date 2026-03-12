@@ -1,10 +1,11 @@
+---
 name: update changelog
 
 on:
   release:
     types: [released]
   workflow_call:
-    secrets: 
+    secrets:
       GPG_BOT:
         required: true
         description: bot gpg token
@@ -29,33 +30,17 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.release.target_commitish }}
 
-      - name: Check file existence
-        id: check_files
+      - name: Check changelog.md existence (lowercase)
+        id: check_lowercase
         uses: andstor/file-existence-action@v3
         with:
           files: "changelog.md"
 
-      - uses: actions/setup-go@v6
-        id: artifacts-golang
+      - name: Check CHANGELOG.md existence (uppercase)
+        id: check_uppercase
+        uses: andstor/file-existence-action@v3
         with:
-          go-version: '^1.21.0'
-
-      - name: Install first-changelog
-        id: artifacts-tools-install
-        if: steps.check_files.outputs.files_exists != 'true'
-        run: go install github.com/bavix/first-changelog@latest
-
-      - name: Install ghmd
-        run: go install github.com/bavix/ghmd@latest
-
-      - name: Init changelog
-        id: artifacts-display-all
-        if: steps.check_files.outputs.files_exists != 'true'
-        run: |
-          ~/go/bin/first-changelog "${{ github.repository }}" > changelog.md
-
-      - name: Fix changelog
-        run: cat changelog.md | ~/go/bin/ghmd | tee changelog.md
+          files: "CHANGELOG.md"
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v7
@@ -69,8 +54,59 @@ jobs:
           git_committer_name: Github bot
           git_committer_email: bot@babichev.net
 
+      - name: Migrate changelog.md to CHANGELOG.md
+        if: >-
+          ${{ steps.check_lowercase.outputs.files_exists == 'true' &&
+          steps.check_uppercase.outputs.files_exists != 'true' }}
+        run: |
+          echo "Migrating changelog.md to CHANGELOG.md..."
+
+          # Save content to variable
+          CHANGELOG_CONTENT=$(cat changelog.md)
+
+          # Delete old file
+          git rm changelog.md
+          git commit -S -m "Migrate: remove changelog.md (lowercase)"
+
+          # Create new file with same content
+          echo "$CHANGELOG_CONTENT" > CHANGELOG.md
+          git add CHANGELOG.md
+          git commit -S -m "Migrate: add CHANGELOG.md (uppercase)"
+
+          git push
+
+      - name: Check if CHANGELOG.md exists (after migration)
+        id: check_final
+        uses: andstor/file-existence-action@v3
+        with:
+          files: "CHANGELOG.md"
+
+      - uses: actions/setup-go@v6
+        id: artifacts-golang
+        with:
+          go-version: '^1.21.0'
+
+      - name: Install first-changelog
+        id: artifacts-tools-install
+        if: ${{ steps.check_final.outputs.files_exists != 'true' }}
+        run: go install github.com/bavix/first-changelog@latest
+
+      - name: Install ghmd
+        run: go install github.com/bavix/ghmd@latest
+
+      - name: Init CHANGELOG.md
+        id: artifacts-display-all
+        if: ${{ steps.check_final.outputs.files_exists != 'true' }}
+        run: |
+          ~/go/bin/first-changelog "${{ github.repository }}" > CHANGELOG.md
+
+      - name: Fix CHANGELOG.md
+        run: |
+          ~/go/bin/ghmd < CHANGELOG.md > CHANGELOG.md.tmp
+          mv CHANGELOG.md.tmp CHANGELOG.md
+
       - name: Check if branch and release match
-        if: ${{ steps.check_files.outputs.files_exists == 'true' }}
+        if: ${{ steps.check_final.outputs.files_exists == 'true' }}
         id: guard
         run: |
           NUMERIC_VERSION="${RELEASE_TAG_NAME#v}"
@@ -78,7 +114,8 @@ jobs:
           BRANCH_MAJOR_VERSION="${BRANCH%%.*}"
 
           echo "MAJOR_VERSION=$(echo $MAJOR_VERSION)" >> $GITHUB_OUTPUT;
-          echo "BRANCH_MAJOR_VERSION=$(echo $BRANCH_MAJOR_VERSION)" >> $GITHUB_OUTPUT;
+          echo "BRANCH_MAJOR_VERSION=$(echo $BRANCH_MAJOR_VERSION)" \
+          >> $GITHUB_OUTPUT;
 
           if [ "$MAJOR_VERSION" != "$BRANCH_MAJOR_VERSION" ]; then
             echo "Mismatched versions! Aborting."
@@ -94,10 +131,13 @@ jobs:
 
       - name: Extract release date from git tag
         id: release_date
-        if: steps.check_files.outputs.files_exists == 'true'
+        if: >-
+          ${{ steps.check_final.outputs.files_exists == 'true' &&
+          steps.guard.outputs.VERSION_MISMATCH == 'false' }}
         run: |
           # Get UNIX timestamp from git-tag
-          TIMESTAMP_OF_RELEASE_COMMIT=$(git log -1 --date=unix --format=%ad '${{ github.event.release.tag_name }}');
+          TIMESTAMP_OF_RELEASE_COMMIT=$(git log -1 --date=unix --format=%ad \
+            '${{ github.event.release.tag_name }}')
 
           # Convert timestamp to UTC date in Y-m-d format
           FORMATED_DATE=$(date -u -d @$TIMESTAMP_OF_RELEASE_COMMIT +%Y-%m-%d)
@@ -105,23 +145,26 @@ jobs:
           # Make date available to other steps
           echo "date=$(echo $FORMATED_DATE)" >> $GITHUB_OUTPUT;
 
-      - name: Update changelog.md
+      - name: Update CHANGELOG.md
         uses: stefanzweifel/changelog-updater-action@v1
-        if: steps.check_files.outputs.files_exists == 'true'
+        if: >-
+          ${{ steps.check_final.outputs.files_exists == 'true' &&
+          steps.guard.outputs.VERSION_MISMATCH == 'false' }}
         with:
           release-date: ${{ steps.release_date.outputs.date }}
           release-notes: ${{ github.event.release.body }}
           latest-version: ${{ github.event.release.tag_name }}
-          compare-url-target-revision: ${{ github.event.release.target_commitish }}
+          compare-url-target-revision: >-
+            ${{ github.event.release.target_commitish }}
           parse-github-usernames: true
-          path-to-changelog: changelog.md
+          path-to-changelog: CHANGELOG.md
 
-      - name: Commit updated changelog.md
+      - name: Commit updated CHANGELOG.md
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           branch: ${{ github.event.release.target_commitish }}
-          commit_message: Update changelog.md
-          file_pattern: changelog.md
+          commit_message: Update CHANGELOG.md
+          file_pattern: CHANGELOG.md
           commit_user_name: Github bot
           commit_user_email: bot@babichev.net
           commit_author: Github bot <bot@babichev.net>

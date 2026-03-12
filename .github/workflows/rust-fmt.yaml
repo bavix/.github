@@ -1,0 +1,41 @@
+---
+name: rust-fmt
+
+on:
+  workflow_call:
+    inputs:
+      rust-version:
+        type: string
+        default: 'stable'
+      working-directory:
+        type: string
+        default: '.'
+      check-only:
+        type: boolean
+        default: true
+
+jobs:
+  rustfmt:
+    name: Rustfmt
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: ${{ inputs.rust-version }}
+          components: rustfmt
+          cache: true
+          cache-workspace: ${{ inputs.working-directory }}
+
+      - name: Check format
+        if: ${{ inputs.check-only }}
+        working-directory: ${{ inputs.working-directory }}
+        run: cargo fmt --all --check
+
+      - name: Format
+        if: ${{ !inputs.check-only }}
+        working-directory: ${{ inputs.working-directory }}
+        run: cargo fmt --all
