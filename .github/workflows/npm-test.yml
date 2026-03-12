@@ -1,29 +1,15 @@
----
-name: npm run test (DEPRECATED)
+name: npm run test
 
 on:
   workflow_call:
     inputs:
       nodejs:
         type: string
-        default: '24.x'
+        default: '20.x'
 
 jobs:
-  deprecated-warning:
-    runs-on: ubuntu-latest
-    steps:
-      - name: ⚠️ DEPRECATION WARNING
-        run: |
-          echo "::warning file=${{ github.workflow }}::This workflow is \
-          deprecated and will be removed in the future."
-          echo "::warning file=${{ github.workflow }}::Please migrate to \
-          'bavix/.github/.github/workflows/node-npm-test.yml@0.5.0'"
-          echo "::warning file=${{ github.workflow }}::Update your workflow \
-          file to use the new name."
-
   units:
     runs-on: ubuntu-latest
-    needs: deprecated-warning
 
     env:
       NODE_ENV: production
