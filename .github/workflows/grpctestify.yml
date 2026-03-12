@@ -1,7 +1,7 @@
 ---
 name: grpctestify
 
-'on':
+on:
   'workflow_call':
     inputs:
       working-directory:

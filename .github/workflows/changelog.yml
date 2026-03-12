@@ -1,7 +1,7 @@
 ---
 name: update changelog
 
-'on':
+on:
   release:
     types: [released]
   'workflow_call':

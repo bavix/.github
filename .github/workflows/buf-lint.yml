@@ -1,7 +1,7 @@
 ---
 name: buf-lint (DEPRECATED)
 
-'on':
+on:
   'workflow_call':
     inputs:
       buf-version:

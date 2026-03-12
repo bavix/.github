@@ -1,7 +1,7 @@
 ---
 name: buf-lint
 
-'on':
+on:
   'workflow_call':
     inputs:
       buf-version:

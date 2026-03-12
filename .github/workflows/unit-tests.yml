@@ -1,7 +1,7 @@
 ---
 name: Unit (DEPRECATED)
 
-'on':
+on:
   'workflow_call':
     inputs:
       go-versions:

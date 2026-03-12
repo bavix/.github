@@ -1,7 +1,7 @@
 ---
 name: golangci-lint (DEPRECATED)
 
-'on':
+on:
   'workflow_call':
     inputs:
       go-version:

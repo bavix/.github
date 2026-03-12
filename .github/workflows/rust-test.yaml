@@ -1,7 +1,7 @@
 ---
 name: rust-test
 
-'on':
+on:
   'workflow_call':
     inputs:
       rust-version:
