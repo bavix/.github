@@ -1,0 +1,211 @@
+# Changelog
+
+## 0.4.1 - 2025-11-25
+
+### What's Changed
+
+* Bump actions/setup-node from 5 to 6 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/30
+* Bump stefanzweifel/git-auto-commit-action from 6 to 7 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/29
+* Bump actions/checkout from 5 to 6 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/31
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.4.0...0.4.1
+
+## 0.4.0 - 2025-09-04
+
+### What's Changed
+
+* Bump wangyoucao577/go-release-action from 1.51 to 1.52 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/23
+* Bump wangyoucao577/go-release-action from 1.52 to 1.53 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/24
+* Bump stefanzweifel/git-auto-commit-action from 5 to 6 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/25
+* Bump actions/setup-go from 5 to 6 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/27
+* Bump actions/setup-node from 4 to 5 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/28
+* Bump actions/checkout from 4 to 5 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/26
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.3.3...0.4.0
+
+## 0.3.3 - 2024-08-01
+
+### What's Changed
+
+* Create lock.yml by [@rez1dent3](https://github.com/rez1dent3) in https://github.com/bavix/.github/pull/22
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.3.2...0.3.3
+
+## 0.3.2 - 2024-07-27
+
+### What's Changed
+
+* NODE_ENV=production by [@rez1dent3](https://github.com/rez1dent3) in https://github.com/bavix/.github/pull/21
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.3.1...0.3.2
+
+## 0.3.1 - 2024-07-26
+
+### What's Changed
+
+* Add support executable_compression by [@rez1dent3](https://github.com/rez1dent3) in https://github.com/bavix/.github/pull/20
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.3.0...0.3.1
+
+## 0.3.0 - 2024-06-17
+
+### What's Changed
+
+* Bump wangyoucao577/go-release-action from 1.49 to 1.50 by [@dependabot](https://github.com/dependabot) in https://github.com/bavix/.github/pull/18
+* Bump wangyoucao577/go-release-action from 1.50 to 1.51 by [@dependabot](https://github.com/dependabot) in https://github.com/bavix/.github/pull/19
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.2.5...0.3.0
+
+## 0.2.5 - 2024-03-23
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.2.4...0.2.5
+
+## 0.2.4 - 2024-02-26
+
+### What's Changed
+
+* Bump wangyoucao577/go-release-action from 1.47 to 1.48 by [@dependabot](https://github.com/dependabot) in https://github.com/bavix/.github/pull/15
+* Configure Mend Bolt for GitHub by [@mend-bolt-for-github](https://github.com/mend-bolt-for-github) in https://github.com/bavix/.github/pull/16
+* Bump wangyoucao577/go-release-action from 1.48 to 1.49 by [@dependabot](https://github.com/dependabot) in https://github.com/bavix/.github/pull/17
+
+### New Contributors
+
+* [@mend-bolt-for-github](https://github.com/mend-bolt-for-github) made their first contribution in https://github.com/bavix/.github/pull/16
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.2.3...0.2.4
+
+## 0.2.3 - 2024-02-10
+
+### What's Changed
+
+* Bump wangyoucao577/go-release-action from 1.46 to 1.47 by [@dependabot](https://github.com/dependabot) in https://github.com/bavix/.github/pull/14
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.2.2...0.2.3
+
+## 0.2.2 - 2024-01-29
+
+### What's Changed
+
+* Bump wangyoucao577/go-release-action from 1.42 to 1.43 by [@dependabot](https://github.com/dependabot) in https://github.com/bavix/.github/pull/11
+* Bump andstor/file-existence-action from 2 to 3 by [@dependabot](https://github.com/dependabot) in https://github.com/bavix/.github/pull/12
+* Bump wangyoucao577/go-release-action from 1.43 to 1.46 by [@dependabot](https://github.com/dependabot) in https://github.com/bavix/.github/pull/13
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.2.1...0.2.2
+
+## 0.2.1 - 2024-01-24
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.2.0...0.2.1
+
+## 0.1.9 - 2024-01-19
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.1.8...0.1.9
+
+## 0.1.8 - 2024-01-19
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.1.7...0.1.8
+
+## 0.1.7 - 2024-01-18
+
+## What's Changed
+
+* Bump andstor/file-existence-action from 1 to 2 by [@dependabot](https://github.com/dependabot) in https://github.com/bavix/.github/pull/10
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.1.6...0.1.7
+
+## 0.1.6 - 2024-01-17
+
+* automatic generation of the first changelog.md
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.1.5...0.1.6
+
+## 0.1.5 - 2024-01-17
+
+## What's Changed
+
+* Bump actions/github-script from 6 to 7 by [@dependabot](https://github.com/dependabot) in https://github.com/bavix/.github/pull/9
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.1.4...0.1.5
+
+## 0.1.4 - 2024-01-16
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.1.3...0.1.4
+
+## 0.1.3 - 2024-01-16
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.1.2...0.1.3
+
+## 0.1.2 - 2024-01-16
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.1.1...0.1.2
+
+## 0.1.1 - 2024-01-03
+
+## What's Changed
+
+* Bump wangyoucao577/go-release-action from 1.41 to 1.42 by [@dependabot](https://github.com/dependabot) in https://github.com/bavix/.github/pull/8
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.1.0...0.1.1
+
+## 0.1.0 - 2023-12-07
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.0.9...0.1.0
+
+## 0.0.9 - 2023-12-04
+
+## What's Changed
+
+* Bump wangyoucao577/go-release-action from 1.40 to 1.41 by [@dependabot](https://github.com/dependabot) in https://github.com/bavix/.github/pull/7
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.0.8...0.0.9
+
+## 0.0.8 - 2023-10-24
+
+## What's Changed
+
+* Bump actions/setup-node from 3 to 4 by [@dependabot](https://github.com/dependabot) in https://github.com/bavix/.github/pull/6
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.0.7...0.0.8
+
+## 0.0.7 - 2023-09-29
+
+## What's Changed
+
+* php semgrep by [@rez1dent3](https://github.com/rez1dent3) in https://github.com/bavix/.github/pull/5
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.0.6...0.0.7
+
+## 0.0.6 - 2023-09-29
+
+## What's Changed
+
+* Bump wangyoucao577/go-release-action from 1.39 to 1.40 by [@dependabot](https://github.com/dependabot) in https://github.com/bavix/.github/pull/2
+* Bump crazy-max/ghaction-import-gpg from 5 to 6 by [@dependabot](https://github.com/dependabot) in https://github.com/bavix/.github/pull/3
+* Bump actions/checkout from 3 to 4 by [@dependabot](https://github.com/dependabot) in https://github.com/bavix/.github/pull/1
+* bugfix by [@rez1dent3](https://github.com/rez1dent3) in https://github.com/bavix/.github/pull/4
+
+## New Contributors
+
+* [@dependabot](https://github.com/dependabot) made their first contribution in https://github.com/bavix/.github/pull/2
+* [@rez1dent3](https://github.com/rez1dent3) made their first contribution in https://github.com/bavix/.github/pull/4
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.0.5...0.0.6
+
+## 0.0.5 - 2023-08-20
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.0.4...0.0.5
+
+## 0.0.4 - 2023-08-14
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.0.3...0.0.4
+
+## 0.0.3 - 2023-08-14
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.0.2...0.0.3
+
+## 0.0.2 - 2023-08-13
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.0.1...0.0.2
+
+## 0.0.1 - 2023-08-13
+
+**Full Changelog**: https://github.com/bavix/.github/commits/0.0.1
