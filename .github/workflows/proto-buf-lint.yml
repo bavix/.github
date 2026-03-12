@@ -1,0 +1,53 @@
+---
+name: buf-lint
+
+'on':
+  'workflow_call':
+    inputs:
+      buf-version:
+        type: string
+        default: 'v1.66.1'
+      working-directory:
+        type: string
+        default: '.'
+      failure-threshold:
+        type: string
+        default: 'error'
+      input-config:
+        type: string
+        default: 'buf.yaml'
+    secrets:
+      buf-token:
+        required: false
+
+jobs:
+  buf:
+    name: buf lint and format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Buf
+        uses: bufbuild/buf-setup-action@v1
+        with:
+          version: ${{ inputs.buf-version }}
+          github_token: ${{ secrets.buf-token || github.token }}
+
+      - name: Lint Protobuf files
+        working-directory: ${{ inputs.working-directory }}
+        run: >-
+          buf lint --input-config ${{ inputs.input-config }}
+          --error-format=json | jq .
+
+      - name: Format check
+        working-directory: ${{ inputs.working-directory }}
+        run: buf format --diff --exit-code
+
+      - name: Breaking change detection
+        if: ${{ github.event_name == 'pull_request' }}
+        working-directory: ${{ inputs.working-directory }}
+        run: >-
+          buf breaking --against
+          'https://github.com/${{ github.repository }}.git#branch=${{
+          github.base_ref }}'

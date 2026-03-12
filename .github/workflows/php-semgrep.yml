@@ -1,7 +1,8 @@
+---
 name: php semgrep
 
-on:
-  workflow_call:
+'on':
+  'workflow_call':
 
 jobs:
   semgrep:

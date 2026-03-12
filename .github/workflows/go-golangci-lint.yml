@@ -1,0 +1,39 @@
+---
+name: golangci-lint
+
+'on':
+  'workflow_call':
+    inputs:
+      go-version:
+        type: string
+        default: '1.26'
+      golangci-lint-version:
+        type: string
+        default: 'v2.10.1'
+      working-directory:
+        type: string
+        default: .
+      skip-cache:
+        type: boolean
+        default: false
+
+jobs:
+  golangci:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: ${{ inputs.go-version }}
+          cache: true
+          cache-dependency-path: ${{ inputs.working-directory }}/go.sum
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v9
+        with:
+          version: ${{ inputs.golangci-lint-version }}
+          skip-cache: ${{ inputs.skip-cache }}
+          working-directory: ${{ inputs.working-directory }}

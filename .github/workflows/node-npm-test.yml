@@ -1,0 +1,31 @@
+---
+name: npm run test
+
+'on':
+  'workflow_call':
+    inputs:
+      nodejs:
+        type: string
+        default: '24.x'
+
+jobs:
+  units:
+    runs-on: ubuntu-latest
+
+    env:
+      NODE_ENV: production
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node ${{ inputs.nodejs }}
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ inputs.nodejs }}
+          cache: npm
+
+      - name: "install"
+        run: npm ci --production
+
+      - name: "test"
+        run: npm run test
