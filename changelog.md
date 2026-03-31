@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.5.0 - 2026-03-19
+
+### What's Changed
+
+* Bump wangyoucao577/go-release-action from 1.53 to 1.54 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/32
+* Bump crazy-max/ghaction-import-gpg from 6 to 7 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/35
+* Bump dessant/lock-threads from 5 to 6 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/34
+* Bump wangyoucao577/go-release-action from 1.54 to 1.55 by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/bavix/.github/pull/33
+* add new jobs by [@rez1dent3](https://github.com/rez1dent3) in https://github.com/bavix/.github/pull/36
+* Revert "add new jobs" by [@rez1dent3](https://github.com/rez1dent3) in https://github.com/bavix/.github/pull/37
+
+**Full Changelog**: https://github.com/bavix/.github/compare/0.4.1...0.5.0
+
 ## 0.4.1 - 2025-11-25
 
 ### What's Changed
@@ -209,4 +222,3 @@
 ## 0.0.1 - 2023-08-13
 
 **Full Changelog**: https://github.com/bavix/.github/commits/0.0.1
-
